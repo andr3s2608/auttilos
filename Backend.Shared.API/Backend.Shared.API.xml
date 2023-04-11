@@ -10,6 +10,24 @@
             </summary>
             <param name="constantesBusiness">The constantes business.</param>
         </member>
+        <member name="M:Backend.Shared.API.Controllers.DocumentController.getDocumentsbyid(System.String)">
+            <summary>
+            Permite agregar un documento a base de datos
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Backend.Shared.API.Controllers.DocumentController.AddDocuments(System.Collections.Generic.List{Backend.Shared.Entities.DTOs.Auttitulos.DocumentsDTO})">
+            <summary>
+            Permite agregar un documento a base de datos
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Backend.Shared.API.Controllers.DocumentController.up(System.Collections.Generic.List{Backend.Shared.Entities.DTOs.Auttitulos.DocumentsDTO})">
+            <summary>
+            Permite agregar un documento a base de datos
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Backend.Shared.API.Controllers.PDFController.#ctor(Backend.Shared.Entities.Interface.Business.IPDFBussines)">
             <summary>
             Se crear una instancia para <see cref="T:Backend.Shared.API.Controllers.ConstantesController"/> class.

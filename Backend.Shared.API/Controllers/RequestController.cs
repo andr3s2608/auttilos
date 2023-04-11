@@ -33,6 +33,13 @@ namespace Backend.Shared.API.Controllers
 
         #region Methods
 
+        [HttpGet("GetRequestByid/{idrequest}")]
+        public async Task<ActionResult> Getrequestbyid(string idrequest)
+        {
+            var result = _requestBusiness.getRequestbyid(idrequest);
+            return StatusCode(result.Result.Code, result);
+        }
+
 
 
         [HttpGet("GetAllResolutions")]

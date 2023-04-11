@@ -13,6 +13,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using Backend.Shared.Entities.Models.Auttitulos;
 
 namespace Backend.Shared.BusinessRules
 {
@@ -84,6 +85,28 @@ namespace Backend.Shared.BusinessRules
         #region Methods
 
 
+        /// <summary>
+        /// Gets Request by id
+        /// </summary>
+        /// <returns></returns>
+        public async Task<ResponseBase<procedure_requests>> getRequestbyid(string idrequest)
+        {
+            try
+            {
+                var result = await _repositoryprocedure.GetAsync(x => x.IdProcedureRequest.Equals(int.Parse(  idrequest)));
+
+                return new Entities.Responses.ResponseBase<procedure_requests>(code: HttpStatusCode.OK,
+                   message: Middle.Messages.GetOk, data:result, count: 1);
+
+            }
+            catch(Exception e )
+            {
+
+            }
+            throw new NotImplementedException();
+        }
+
+
 
         /// <summary>
         /// Gets all Resolutiones.
@@ -127,8 +150,9 @@ namespace Backend.Shared.BusinessRules
             }
         }
 
-        
-       
+
+
+
         #endregion
 
     }
