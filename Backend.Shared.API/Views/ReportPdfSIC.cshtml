@@ -1,0 +1,120 @@
+﻿<html>
+
+<head>
+    <meta http-equiv=Content-Type content="text/html; charset=utf-8">
+    <meta name=Generator content="Microsoft Word 15 (filtered)">
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 6px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2
+        }
+
+        th {
+            background-color: #04AA6D;
+            color: white;
+        }
+    </style>
+</head>
+
+
+<body lang=EN-US style='word-wrap:break-word'>
+
+    <div class=WordSection1>
+
+        <p class=MsoNormal align=center style='margin-bottom:0in;text-align:center; line-height:normal'>
+            <span lang=ES-CO style='font-size:20.0pt'>
+                HISTORIAL DE SOLICITUDES GENERADAS
+            </span>
+        </p>
+
+        <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>
+            <span lang=ES-CO>&nbsp;</span>
+        </p>
+
+        <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>
+            <span lang=ES-CO>&nbsp;</span>
+        </p>
+
+        <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>
+            <span lang=ES-CO>&nbsp;</span>
+        </p>
+
+        <div style='border:solid windowtext 1.0pt;padding:1.0pt 4.0pt 5.0pt 4.0pt'>
+
+            <p class=MsoNormal style='margin-bottom:0in;line-height:normal;border:none; padding:0in'>
+                <b>
+                    <span lang=ES-CO style='font-size:12.0pt'>
+                        SECRETARIA DISTRITAL
+                        DE SALUD DE BOGOTA D C COLOMBIA   REPORTE SIC               @Model.FechaActual, @Model.Hora
+                    </span>
+                </b>
+            </p>
+
+        </div>
+        <table>
+            <tr>
+                <th>Entidad evaluada</th>
+                <th>NIT de la entidad evaluada</th>
+                <th>DV</th>
+                <th>Nombre del responsable</th>
+                <th>Cargo del responsable</th>
+                <th>Dirección electrónica del responsable</th>
+                <th>Teléfono del responsable</th>
+                <th>Reporte de información</th>
+                <th>Analisis semestral</th>
+                <th>Estrategias de mejoramiento</th>
+                <th>Actuación administrativa</th>
+                <th>Descripción</th>
+                <th>Observacion</th>
+            </tr>
+            @foreach (var item in Model.solicitudes)
+            {
+                <tr>
+                    <td>@item["entidadEvaluada"]</td>
+                    <td>@item["nit"]</td>
+                    <td>@item["dv"]</td>                   
+                    <td>@item["nombreResponsable"]</td>
+                    <td>@item["cargoResponsable"]</td>
+                    <td>@item["direccionResponsable"]</td>
+                    <td>@item["telefonoResponsable"]</td>
+                    <td>
+                        @if(@item["reporteInformacion"]=="TRUE"){
+                            <span>SI</span>
+                        }else{
+                            <span>NO</span>
+                        }                  
+                       </td>
+                       <td>
+                        @if(@item["analisisSemestral"]=="TRUE"){
+                            <span>SI</span>
+                        }else{
+                            <span>NO</span>
+                        }                  
+                       </td>
+                       <td>@item["estrategiasMejoramiento"]</td>
+                       <td>
+                        @if(@item["actuacionAdmin"]=="TRUE"){
+                            <span>SI</span>
+                        }else{
+                            <span>NO</span>
+                        }                  
+                       </td>
+                       <td>@item["actuacionAdminDescripcion"]</td>
+                        <td>@item["observacion"]</td>
+                </tr>
+            }
+        </table>
+
+
+</body>
+
+</html>

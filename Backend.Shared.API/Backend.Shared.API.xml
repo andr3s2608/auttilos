@@ -1,0 +1,166 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Backend.Shared.API</name>
+    </assembly>
+    <members>
+        <member name="M:Backend.Shared.API.Controllers.ConstantesController.#ctor(Backend.Shared.Entities.Interface.Business.IConstantesBusiness)">
+            <summary>
+            Se crear una instancia para <see cref="T:Backend.Shared.API.Controllers.ConstantesController"/> class.
+            </summary>
+            <param name="constantesBusiness">The constantes business.</param>
+        </member>
+        <member name="M:Backend.Shared.API.Controllers.PDFController.#ctor(Backend.Shared.Entities.Interface.Business.IPDFBussines)">
+            <summary>
+            Se crear una instancia para <see cref="T:Backend.Shared.API.Controllers.ConstantesController"/> class.
+            </summary>
+            <param name="constantesBusiness">The constantes business.</param>
+        </member>
+        <member name="T:Backend.Shared.API.Controllers.programasController">
+            <summary>
+            PamecController 
+            </summary>
+            <seealso cref="T:Microsoft.AspNetCore.Mvc.ControllerBase" />
+        </member>
+        <member name="M:Backend.Shared.API.Controllers.programasController.#ctor(Backend.Shared.Entities.Interface.Business.IProgramasBusiness)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Backend.Shared.API.Controllers.programasController"/> class.
+            </summary>
+            <param name="pamecBusiness">The pamec business.</param>
+        </member>
+        <member name="T:Backend.Shared.API.Controllers.RequestController">
+            <summary>
+            CargoController 
+            </summary>
+            <seealso cref="T:Microsoft.AspNetCore.Mvc.ControllerBase" />
+        </member>
+        <member name="M:Backend.Shared.API.Controllers.RequestController.#ctor(Backend.Shared.Entities.Interface.Business.IRequestBusiness)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Backend.Shared.API.Controllers.RequestController"/> class.
+            </summary>
+            <param name="pamecContext">The cementerio business.</param>
+            <param name="cargoBusiness">The cementerio business.</param>
+        </member>
+        <member name="T:Backend.Shared.API.Controllers.StatusController">
+            <summary>
+            CriterioTipoDocumentoController
+            </summary>
+            <seealso cref="T:Microsoft.AspNetCore.Mvc.ControllerBase" />
+        </member>
+        <member name="M:Backend.Shared.API.Controllers.StatusController.#ctor(Backend.Shared.Entities.Interface.Business.IStatusBusiness)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Backend.Shared.API.Controllers.StatusController"/> class.
+            </summary>
+            <param name="pamecContext">The CriterioTipoDocumento business.</param>
+            <param name="CriterioTipoDocumentoBusiness">The CriterioTipoDocumento business.</param>
+        </member>
+        <member name="T:Backend.Shared.API.Controllers.TitleController">
+            <summary>
+            FirmasController 
+            </summary>
+            <seealso cref="T:Microsoft.AspNetCore.Mvc.ControllerBase" />
+        </member>
+        <member name="M:Backend.Shared.API.Controllers.TrackingController.#ctor(Backend.Shared.Entities.Interface.Business.ITrackingBusiness)">
+            <summary>
+            Se crear una instancia para <see cref="T:Backend.Shared.API.Controllers.TrackingController"/> class.
+            </summary>
+            <param name="">The Seguimiento business.</param>
+        </member>
+        <member name="T:Backend.Shared.API.Injections.BusinessInjection">
+            <summary>
+            Business Injection
+            </summary>
+        </member>
+        <member name="M:Backend.Shared.API.Injections.BusinessInjection.AddBusinessConfig(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Adds the business configuration.
+            </summary>
+            <param name="services">The services.</param>
+            <param name="configuration"></param>
+        </member>
+        <member name="T:Backend.Shared.API.Injections.InitialInjection">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Backend.Shared.API.Injections.InitialInjection.AddInitialConfig(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Adds the initial configuration.
+            </summary>
+            <param name="services">The services.</param>
+        </member>
+        <member name="M:Backend.Shared.API.Injections.InitialInjection.UseInitialConfig(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+            <summary>
+            Uses the initial configuration.
+            </summary>
+            <param name="app">The application.</param>
+        </member>
+        <member name="T:Backend.Shared.API.Injections.SwaggerInjection">
+            <summary>
+            Swagger Injection
+            </summary>
+        </member>
+        <member name="M:Backend.Shared.API.Injections.SwaggerInjection.AddSwaggerConfig(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Adds the swagger configuration.
+            </summary>
+            <param name="services">The services.</param>
+        </member>
+        <member name="M:Backend.Shared.API.Injections.SwaggerInjection.UseSwaggerConfig(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+            <summary>
+            Uses the swagger configuration.
+            </summary>
+            <param name="app">The application.</param>
+        </member>
+        <member name="T:Backend.Shared.API.Program">
+            <summary>
+            Program
+            </summary>
+        </member>
+        <member name="M:Backend.Shared.API.Program.Main(System.String[])">
+            <summary>
+            Defines the entry point of the application.
+            </summary>
+            <param name="args">The arguments.</param>
+        </member>
+        <member name="M:Backend.Shared.API.Program.CreateHostBuilder(System.String[])">
+            <summary>
+            Creates the host builder.
+            </summary>
+            <param name="args">The arguments.</param>
+            <returns></returns>
+        </member>
+        <member name="T:Backend.Shared.API.Startup">
+            <summary>
+            Startup
+            </summary>
+        </member>
+        <member name="M:Backend.Shared.API.Startup.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Backend.Shared.API.Startup"/> class.
+            </summary>
+            <param name="configuration">The configuration.</param>
+        </member>
+        <member name="P:Backend.Shared.API.Startup.Configuration">
+            <summary>
+            Gets the configuration.
+            </summary>
+            <value>
+            The configuration.
+            </value>
+        </member>
+        <member name="M:Backend.Shared.API.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Configures the services.
+            </summary>
+            <param name="services">The services.</param>
+        </member>
+        <member name="M:Backend.Shared.API.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+            <summary>
+            Configures the specified application.
+            </summary>
+            <param name="app">The application.</param>
+            <param name="env">The env.</param>
+        </member>
+    </members>
+</doc>

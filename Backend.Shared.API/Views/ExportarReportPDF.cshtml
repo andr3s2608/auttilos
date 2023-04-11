@@ -1,0 +1,136 @@
+﻿<html>
+
+<head>
+    <meta http-equiv=Content-Type content="text/html; charset=utf-8">
+    <meta name=Generator content="Microsoft Word 15 (filtered)">
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 6px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2
+        }
+
+        th {
+            background-color: #04AA6D;
+            color: white;
+        }
+    </style>
+</head>
+
+
+<body lang=EN-US style='word-wrap:break-word'>
+
+    <div class=WordSection1>
+
+        <p class=MsoNormal align=center style='margin-bottom:0in;text-align:center; line-height:normal'>
+            <span lang=ES-CO style='font-size:20.0pt'>
+                HISTORIAL DE SOLICITUDES GENERADAS
+            </span>
+        </p>
+
+        <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>
+            <span lang=ES-CO>&nbsp;</span>
+        </p>
+
+        <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>
+            <span lang=ES-CO>&nbsp;</span>
+        </p>
+
+        <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>
+            <span lang=ES-CO>&nbsp;</span>
+        </p>
+
+        <div style='border:solid windowtext 1.0pt;padding:1.0pt 4.0pt 5.0pt 4.0pt'>
+
+            <p class=MsoNormal style='margin-bottom:0in;line-height:normal;border:none; padding:0in'>
+                <b>
+                    <span lang=ES-CO style='font-size:12.0pt'>
+                        SECRETARIA DISTRITAL
+                        DE SALUD DE BOGOTA D C COLOMBIA                  @Model.FechaActual, @Model.Hora
+                    </span>
+                </b>
+            </p>
+
+        </div>
+        <table>
+            <tr>
+                <th>Entidad evaluada</th>
+                <th>NIT de la entidad evaluada</th>
+                <th>DV</th>
+                <th>Criterio 1</th>
+                <th>Criterio 2</th>
+                <th>Criterio 3</th>
+                <th>Criterio 4</th>
+                <th>Criterio 5</th>
+                <th>Criterio 6</th>
+                <th>Criterio 7</th>
+                <th>Criterio 8</th>
+                <th>Criterio 9</th>
+                <th>Criterio 10</th>
+                <th>Resumen Cumplimiento</th>
+                <th>Responsable Seguimiento</th>
+                <th>Cargo responsable</th>
+                <th>Dirección electronica</th>
+                <th>Telefono del responsable</th>
+                <th>Observacion</th>
+            </tr>
+            @foreach (var item in Model.solicitudes)
+            {
+                <tr>
+                    <td>@item["entidadEvaluada"]</td>
+                    <td>@item["nit"]</td>
+                    <td>@item["dv"]</td>   
+                    
+                    @if(@item["criterios"] != null){
+                            var criterioId= new int[10];
+                            for (int i=0;i<10;i++){
+                                criterioId[i]=0;
+                            }
+                            @foreach (var criterioL in @item["criterios"]){
+                                int posicion = criterioL.criterioID;
+                                criterioId[posicion-1]=1;
+                            }
+            
+                             for (int i=0;i<10;i++){
+                                 if (criterioId[i]==1)
+                                    {
+                                        <td>
+                                           @if(@item["criterios"][i].aprobado=="TRUE"){
+                                               <span>SI</span>
+                                           }else{
+                                               <span>NO</span>
+                                           }
+                                        
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                        <span>No Registra</span>
+                                        </td>
+                                    }
+                             }
+                        }
+                             
+                    <td>@item["Resumen Cumplimiento"]</td>
+                    <td>@item["resultadoCumplimiento"]</td>
+                    <td>@item["cargoResponsable"]</td>
+                    <td>@item["direccionResponsable"]</td>
+                    <td>@item["telefonoResponsable"]</td>
+                    <td>@item["observacion"]</td>
+                </tr>
+            }
+        </table>
+
+
+</body>
+
+</html>

@@ -1,0 +1,117 @@
+﻿{
+   "CodeGenerationMode": 1,
+   "ContextClassName": "dbaeusdsdevpamecContext",
+   "ContextNamespace": null,
+   "DefaultDacpacSchema": null,
+   "FilterSchemas": false,
+   "IncludeConnectionString": false,
+   "ModelNamespace": null,
+   "OutputContextPath": "Context",
+   "OutputPath": null,
+   "PreserveCasingWithRegex": true,
+   "ProjectRootNamespace": "Backend.Shared.Repositories",
+   "Schemas": null,
+   "SelectedHandlebarsLanguage": 0,
+   "SelectedToBeGenerated": 1,
+   "Tables": [
+      {
+         "Name": "[pamec].[Cargo]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[pamec].[Constante]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[pamec].[Criterio]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[pamec].[Criterio_TipoDocumento]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[pamec].[Dependencia]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[pamec].[Documento_RegistroPAMEC_RegistroSIC]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[pamec].[Entidad]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[pamec].[Menu]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[pamec].[Menu_Cargo]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[pamec].[Permiso]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[pamec].[Registro]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[pamec].[RegistroPAMEC]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[pamec].[RegistroSIC]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[pamec].[Responsable]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[pamec].[Sede]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[pamec].[SeguimientoPAMEC]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[pamec].[SeguimientoSIC]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[pamec].[TipoDocumento]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[pamec].[Usuario]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[pamec].[Usuario_Cargo]",
+         "ObjectType": 0
+      }
+   ],
+   "UiHint": "SDS-SQLSERVER.dbaeusdsdevpamec",
+   "UseBoolPropertiesWithoutDefaultSql": false,
+   "UseDatabaseNames": true,
+   "UseDbContextSplitting": false,
+   "UseFluentApiOnly": false,
+   "UseHandleBars": false,
+   "UseHierarchyId": false,
+   "UseInflector": false,
+   "UseLegacyPluralizer": false,
+   "UseManyToManyEntity": false,
+   "UseNoConstructor": false,
+   "UseNoDefaultConstructor": false,
+   "UseNoNavigations": false,
+   "UseNoObjectFilter": false,
+   "UseNodaTime": false,
+   "UseNullableReferences": false,
+   "UseSchemaFolders": false,
+   "UseSpatial": false,
+   "UseT4": false
+}
