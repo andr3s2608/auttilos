@@ -14,6 +14,8 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using Backend.Shared.Entities.Models.Auttitulos;
+using Backend.Shared.Entities.DTOs.Auttitulos;
+using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Shared.BusinessRules
 {
@@ -93,17 +95,19 @@ namespace Backend.Shared.BusinessRules
         {
             try
             {
-                var result = await _repositoryprocedure.GetAsync(x => x.IdProcedureRequest.Equals(int.Parse(  idrequest)));
+                var result = await _repositoryprocedure.GetAsync(x => x.IdProcedureRequest.Equals(int.Parse(  idrequest)),include: inc => (Microsoft.EntityFrameworkCore.Query.IIncludableQueryable<procedure_requests, object>)inc
+                                                                                                                                   .Include(i => i.IdStatusTypeprocNavigation));
 
                 return new Entities.Responses.ResponseBase<procedure_requests>(code: HttpStatusCode.OK,
                    message: Middle.Messages.GetOk, data:result, count: 1);
 
             }
-            catch(Exception e )
+            catch(Exception ex )
             {
-
+                return new Entities.Responses.ResponseBase<procedure_requests>(code: HttpStatusCode.OK,
+                 message: "ha ocurrido un error mientras se traia la información", data: null);
             }
-            throw new NotImplementedException();
+            
         }
 
 
@@ -145,8 +149,49 @@ namespace Backend.Shared.BusinessRules
             catch (Exception ex)
             {
                 TelemetryException.RegisterException(ex);
-                return new Entities.Responses.ResponseBase<List<Entities.Models.Auttitulos.Resolutions>>(code: HttpStatusCode.InternalServerError,
-                    message: Middle.Messages.ServerError);
+                return new Entities.Responses.ResponseBase<List<Entities.Models.Auttitulos.Resolutions>>(code: HttpStatusCode.OK,
+                    message: "ha ocurrido un error mientras se traia la información", data: null);
+            }
+        }
+
+        public async Task<ResponseBase<string>> UpdateRequest(RequestDTO request)
+        {
+            try
+            {
+                var result = await _repositoryprocedure.GetAsync(x => x.IdProcedureRequest.Equals(request.IdProcedureRequest));
+
+                result.IdTitleTypes = request.IdTitleTypes;
+                result.IdStatus_types = request.IdStatus_types;
+                result.IdInstitute = request.IdInstitute;
+                result.IdProfessionInstitute = request.IdProfessionInstitute;
+                result.IdUser = request.IdUser;
+                result.user_code_ventanilla = request.user_code_ventanilla;
+                result.filed_number = request.filed_number;
+                result.IdProfession = request.IdProfession;
+                result.diploma_number = request.diploma_number;
+                result.graduation_certificate = request.graduation_certificate;
+                result.end_date = request.end_date;
+                result.book = request.book;
+                result.folio = request.folio;
+                result.year_title = request.year_title;
+                result.professional_card = request.professional_card;
+                result.name_international_university = request.name_institute_international;
+                result.IdCountry = request.IdCountry;
+                result.number_resolution_convalidation = request.number_resolution_convalidation;
+                result.date_resolution_convalidation = request.date_resolution_convalidation;
+                result.IdEntity = request.IdEntity;
+                result.name_institute_international = request.name_institute_international;
+
+                await _repositoryprocedure.UpdateAsync(result);
+
+                return new Entities.Responses.ResponseBase<string>(code: HttpStatusCode.OK,
+                   message: Middle.Messages.GetOk, data: "Solicitud Actualizada Exitosamente", count: 1);
+
+            }
+            catch (Exception ex)
+            {
+                return new Entities.Responses.ResponseBase<string>(code: HttpStatusCode.OK,
+                 message: "ha ocurrido un error mientras se Actualizaba la información", data: null);
             }
         }
 

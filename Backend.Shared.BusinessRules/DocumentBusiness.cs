@@ -14,6 +14,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using Backend.Shared.Entities.Models.Auttitulos;
+using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Shared.BusinessRules
 {
@@ -67,16 +68,12 @@ namespace Backend.Shared.BusinessRules
                     var documenttype = await _repositorydocuments.GetAsync(x => x.IdDocumentType.Equals(document.IdDocumentType));
 
                     var documentcreated = new Document_types_procedure();
-                    //documentcreated.IdDocumentTypeProcedureRequest = null;
-                    documentcreated.path = document.path;
+                                        documentcreated.path = document.path;
                     documentcreated.IdProcedureRequest = document.IdProcedureRequest;
                     documentcreated.IdDocumentType = document.IdDocumentType;
                     documentcreated.is_valid = document.is_valid;
                     documentcreated.modification_date = System.DateTime.Now;
-                    documentcreated.registration_date = System.DateTime.Now;
-
-                    //documentcreated.IdProcdocNavigation = procedure;
-                    //documentcreated.IdDocumentProcNavigation = documenttype;
+                    documentcreated.registration_date = System.DateTime.Now;                                      
 
                     await _repositorydocumentsprocedure.AddAsync(documentcreated);
 
@@ -98,11 +95,13 @@ namespace Backend.Shared.BusinessRules
         {
             try
             {
-                var result = await _repositorydocumentsprocedure.GetAllAsync(x => x.IdProcedureRequest.Equals(int.Parse(idrequest)));
+                var result = await _repositorydocumentsprocedure.GetAllAsync(x => x.IdProcedureRequest.Equals(int.Parse(idrequest)), include: inc => (Microsoft.EntityFrameworkCore.Query.IIncludableQueryable<Document_types_procedure, object>)inc
+                                                                                                                                   .Include(i => i.IdDocumentProcNavigation));
 
                 var resultlist = new List<Document_types_procedure>();
                 foreach (Document_types_procedure document in result)
                 {
+
                     resultlist.Add(document);
                 }
 

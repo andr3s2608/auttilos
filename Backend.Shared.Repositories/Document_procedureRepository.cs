@@ -48,7 +48,11 @@ namespace Backend.Shared.Repositories
             throw new NotImplementedException();
         }
 
-        public async Task<IList<Document_types_procedure>> GetAllAsync(Expression<Func<Document_types_procedure, bool>> predicate = null, Func<IQueryable<Document_types_procedure>, IIncludableQueryable<Document_types_procedure, object>> include = null, Func<IQueryable<Document_types_procedure>, IOrderedQueryable<Document_types_procedure>> orderBy = null, Expression<Func<Document_types_procedure, Document_types_procedure>> selector = null)
+        public async Task<IList<Document_types_procedure>> GetAllAsync(Expression<Func<Document_types_procedure, 
+            bool>> predicate = null, Func<IQueryable<Document_types_procedure>, 
+                IIncludableQueryable<Document_types_procedure, object>> include = null,
+            Func<IQueryable<Document_types_procedure>, IOrderedQueryable<Document_types_procedure>> orderBy = null,
+            Expression<Func<Document_types_procedure, Document_types_procedure>> selector = null)
         {
             IQueryable<Document_types_procedure> query = Entity.AsNoTracking();
 

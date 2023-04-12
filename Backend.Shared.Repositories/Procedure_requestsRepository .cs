@@ -48,7 +48,11 @@ namespace Backend.Shared.Repositories
             throw new NotImplementedException();
         }
 
-        public async Task<IList<procedure_requests>> GetAllAsync(Expression<Func<procedure_requests, bool>> predicate = null, Func<IQueryable<procedure_requests>, IIncludableQueryable<procedure_requests, object>> include = null, Func<IQueryable<procedure_requests>, IOrderedQueryable<procedure_requests>> orderBy = null, Expression<Func<procedure_requests, procedure_requests>> selector = null)
+        public async Task<IList<procedure_requests>> GetAllAsync(Expression<Func<procedure_requests,
+            bool>> predicate = null, Func<IQueryable<procedure_requests>,
+                IIncludableQueryable<procedure_requests, object>> include = null,
+            Func<IQueryable<procedure_requests>, IOrderedQueryable<procedure_requests>> orderBy = null,
+            Expression<Func<procedure_requests, procedure_requests>> selector = null)
         {
             IQueryable<procedure_requests> query = Entity.AsNoTracking();
 
@@ -80,7 +84,11 @@ namespace Backend.Shared.Repositories
             return await query.AsNoTracking().ToListAsync();
         }
 
-        public async Task<procedure_requests> GetAsync(Expression<Func<procedure_requests, bool>> predicate = null, Func<IQueryable<procedure_requests>, IIncludableQueryable<procedure_requests, object>> include = null, Func<IQueryable<procedure_requests>, IOrderedQueryable<procedure_requests>> orderBy = null, Expression<Func<procedure_requests, procedure_requests>> selector = null)
+        public async Task<procedure_requests> GetAsync(Expression<Func<procedure_requests,
+            bool>> predicate = null, Func<IQueryable<procedure_requests>,
+                IIncludableQueryable<procedure_requests, object>> include = null,
+            Func<IQueryable<procedure_requests>, IOrderedQueryable<procedure_requests>> orderBy = null, 
+            Expression<Func<procedure_requests, procedure_requests>> selector = null)
         {
             IQueryable<procedure_requests> query = Entity.AsNoTracking();
 

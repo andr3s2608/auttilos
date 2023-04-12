@@ -1,5 +1,5 @@
 ﻿using Backend.Shared.BusinessRules;
-using Backend.Shared.Entities.DTOs;
+using Backend.Shared.Entities.DTOs.Auttitulos;
 using Backend.Shared.Entities.Interface.Business;
 
 using Microsoft.AspNetCore.Mvc;
@@ -46,6 +46,13 @@ namespace Backend.Shared.API.Controllers
         public async Task<ActionResult> GetResolutions()
         {
             var result = _requestBusiness.getResolutions();
+            return StatusCode(result.Result.Code, result);
+        }
+
+        [HttpPut("UpdateRequest")]
+        public async Task<ActionResult> UpdateRequest(RequestDTO request)
+        {
+            var result = _requestBusiness.UpdateRequest(request);
             return StatusCode(result.Result.Code, result);
         }
 
