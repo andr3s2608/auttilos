@@ -73,7 +73,7 @@ namespace Backend.Shared.BusinessRules
                     documentcreated.IdDocumentType = document.IdDocumentType;
                     documentcreated.is_valid = document.is_valid;
                     documentcreated.modification_date = System.DateTime.Now;
-                    documentcreated.registration_date = System.DateTime.Now;                                      
+                    documentcreated.registration_date = document.registration_date;                                      
 
                     await _repositorydocumentsprocedure.AddAsync(documentcreated);
 

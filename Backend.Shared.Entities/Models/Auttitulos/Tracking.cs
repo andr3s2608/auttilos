@@ -26,9 +26,9 @@ namespace Backend.Shared.Entities.Models.Auttitulos
         public string? consideration { get; set; }
         public string? exposed_merits { get; set; }
         public string? articles { get; set; }
-        public int? additional_information { get; set; }
+        public string? additional_information { get; set; }
         public string? clarification_types_motives { get; set; }
-        public int? paragraph_MA { get; set; }
+        public string? paragraph_MA { get; set; }
         public string? paragraph_JMA1 { get; set; }
         public string? paragraph_JMA2 { get; set; }
         public string? paragraph_AMA { get; set; }
