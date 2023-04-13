@@ -30,7 +30,12 @@ namespace Backend.Shared.API.Controllers
         #endregion
 
         #region Methods
-
+        [HttpGet("GetStatusTypesbyRol/{rol}")]
+        public async Task<ActionResult> GetStatusbyRol(string rol)
+        {
+            var result = _statusBusiness.GetStatusbyrol(rol);
+            return StatusCode(result.Result.Code, result);
+        }
 
         #endregion
     }

@@ -45,7 +45,7 @@ namespace Backend.Shared.Repositories.Context
                 entity.HasKey(e => e.IdResolution)
                        .HasName("PK__resoluti__532D927499E931EA");
 
-                entity.Property(e => e.IdResolution).ValueGeneratedNever();
+                entity.Property(e => e.IdResolution).ValueGeneratedOnAdd();
 
                 entity.Property(e => e.date).HasColumnType("datetime");
                 entity.Property(e => e.number)
@@ -71,6 +71,9 @@ namespace Backend.Shared.Repositories.Context
                 entity.ToTable("title_types", "auttitulos");
                 entity.HasKey(e => e.IdTitleType)
                        .HasName("PK__title_ty__DFCFB5D4E58694A3");
+
+                entity.Property(e => e.IdTitleType).ValueGeneratedOnAdd();
+
                 entity.Property(e => e.description)
                     .IsRequired()
                     .HasMaxLength(255)
@@ -82,6 +85,9 @@ namespace Backend.Shared.Repositories.Context
                 entity.ToTable("status_types", "auttitulos");
                 entity.HasKey(e => e.IdStatusType)
                        .HasName("PK__status_t__400FABBE3E41332A");
+
+                entity.Property(e => e.IdStatusType).ValueGeneratedOnAdd();
+
                 entity.Property(e => e.description)
                     .IsRequired()
                     .HasMaxLength(255)
@@ -92,8 +98,11 @@ namespace Backend.Shared.Repositories.Context
             modelBuilder.Entity<Entities.Models.Auttitulos.Entities>(entity =>
             {
                 entity.ToTable("entities", "auttitulos");
-                entity.HasKey(e => e.IdEntity)
-                       .HasName("PK__entities__FE2B2B745C930AE6");
+                entity.HasKey(e => e.IdEntity)    
+                .HasName("PK__entities__FE2B2B745C930AE6");
+
+                entity.Property(e => e.IdEntity).ValueGeneratedOnAdd();
+
                 entity.Property(e => e.description)
                     .IsRequired()
                     .HasMaxLength(255)
@@ -105,6 +114,8 @@ namespace Backend.Shared.Repositories.Context
                 entity.ToTable("document_types", "auttitulos");
                 entity.HasKey(e => e.IdDocumentType)
                        .HasName("PK__document__19CDAC3D56BB17A7");
+
+                entity.Property(e => e.IdDocumentType).ValueGeneratedOnAdd();
 
                 entity.Property(e => e.IdDocumentType).ValueGeneratedNever();
 
@@ -131,10 +142,12 @@ namespace Backend.Shared.Repositories.Context
             modelBuilder.Entity<Entities.Models.Auttitulos.Document_types_procedure>(entity =>
             {
                 entity.ToTable("document_types_procedure_requests", "auttitulos");
-                entity.HasKey(e => e.IdDocumentTypeProcedureRequest)
+
+                entity.HasKey(e => e.IdDocumentTypeProcedureRequest)                       
                        .HasName("PK__document__C4EDD5541BF4D9E1");
 
-                entity.Property(e => e.IdDocumentTypeProcedureRequest).ValueGeneratedNever();
+                entity.Property(e => e.IdDocumentTypeProcedureRequest).ValueGeneratedOnAdd();
+
 
 
                 entity.Property(e => e.path)
@@ -205,7 +218,7 @@ namespace Backend.Shared.Repositories.Context
                 entity.HasKey(e => e.IdProcedureRequest)
                        .HasName("PK__procedur__C2E3D66575ABAA75");
 
-                entity.Property(e => e.IdProcedureRequest).ValueGeneratedNever();
+                entity.Property(e => e.IdProcedureRequest).ValueGeneratedOnAdd();
 
                 entity.Property(e => e.end_date).HasColumnType("datetime");
                 entity.Property(e => e.date_resolution_convalidation).HasColumnType("datetime");
@@ -266,8 +279,8 @@ namespace Backend.Shared.Repositories.Context
                 entity.ToTable("tracking", "auttitulos");
                 entity.HasKey(e => e.IdTracking)
                        .HasName("PK__tracking__FDC1E65CB18FC28F");
+                entity.Property(e => e.IdTracking).ValueGeneratedOnAdd();
 
-                entity.Property(e => e.IdTracking).ValueGeneratedNever();
 
                 entity.Property(e => e.date_tracking).HasColumnType("datetime");               
 

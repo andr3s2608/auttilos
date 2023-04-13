@@ -12,7 +12,7 @@ namespace Backend.Shared.Entities.Models.Auttitulos
 
         }
 
-        [Key]
+      
         public int IdDocumentTypeProcedureRequest { get; set; }
         public int IdDocumentType { get; set; }
         public int IdProcedureRequest { get; set; }

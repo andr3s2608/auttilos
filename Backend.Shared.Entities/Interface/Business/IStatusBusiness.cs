@@ -1,5 +1,5 @@
 ﻿using Backend.Shared.Entities.DTOs;
-using Backend.Shared.Entities.Models.Pamec;
+using Backend.Shared.Entities.Models.Auttitulos;
 using Backend.Shared.Entities.Responses;
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,9 @@ namespace Backend.Shared.Entities.Interface.Business
 {
     public interface IStatusBusiness
     {
-       // Task<ResponseBase<Firmas_Rep_Prestador>> getFirma(int idEntidad,string tipoCargo);
-       
+
+
+        Task<ResponseBase<List<Status_types>>> GetStatusbyrol(string rol);
+
     }
 }

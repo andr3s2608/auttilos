@@ -39,12 +39,14 @@ namespace Backend.Shared.API.Injections
             services.AddScoped(typeof(IResolutionsRepository), typeof(ResolutionsRepository));
             services.AddScoped(typeof(IStatusRepository), typeof(StatusRepository));
             services.AddScoped(typeof(ITitle_typesRepository), typeof(Title_typesRepository));
-            services.AddScoped(typeof(ITrackingRepository), typeof(TrackingRepository));         
-         
+            services.AddScoped(typeof(ITrackingRepository), typeof(TrackingRepository));
+            services.AddScoped(typeof(IProcedure_requestsRepository), typeof(Procedure_requestsRepository));
+            services.AddScoped(typeof(IDocument_procedureRepository), typeof(Document_procedureRepository));
+
 
 
             // inyeccion de business rules
-           
+
             services.AddTransient<IConstantesBusiness, ConstantesBusiness>();
             services.AddTransient<IDocumentBusiness, DocumentBusiness>();
             services.AddTransient<IEntitiesBusiness, EntitiesBusiness>();
