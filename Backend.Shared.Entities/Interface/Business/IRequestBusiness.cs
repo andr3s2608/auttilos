@@ -10,11 +10,11 @@ namespace Backend.Shared.Entities.Interface.Business
     public interface IRequestBusiness
     {
 
-        Task<ResponseBase<procedure_requests>> getRequestbyid(string idrequest);
+        Task<ResponseBase<procedure_requests>> getRequestById(string idRequest);
 
-        Task<ResponseBase<List<Entities.Models.Auttitulos.Resolutions>>> getResolutions();
+        Task<List<RequestReponseTableUserDto>> getAllByUser(string idUser);
 
-        Task<ResponseBase<string>> UpdateRequest(RequestDTO request);
+        Task<ResponseBase<string>> updateRequest(RequestDTO request);
 
 
     }
