@@ -239,6 +239,11 @@ namespace Backend.Shared.Repositories.Context
                    .IsUnicode(false);
               
 
+                entity.Property(e => e.IdProfessionInstitute)
+                   .IsRequired()
+                   .HasMaxLength(10)
+                   .IsUnicode(false);
+
                 entity.Property(e => e.year_title)
                    .IsRequired()
                    .HasMaxLength(10)

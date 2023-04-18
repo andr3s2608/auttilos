@@ -18,6 +18,8 @@ namespace Backend.Shared.Repositories
         private readonly dbaeusdsdevpamecContext _db;
         private DbSet<procedure_requests> Entity => _db.Set<procedure_requests>();
 
+        private readonly ResolutionsRepository _resolutionsRepository;
+
         public Procedure_requestsRepository(dbaeusdsdevpamecContext db)
         {
             this._db = db;

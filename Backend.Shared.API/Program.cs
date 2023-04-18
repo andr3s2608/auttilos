@@ -29,9 +29,14 @@ namespace Backend.Shared.API
             return Host.CreateDefaultBuilder(args).ConfigureAppConfiguration((hostingContext, config) =>
                  {
                      config.AddAzureKeyVault(
-                     $"https://{Environment.GetEnvironmentVariable(Utilities.Constants.Environment.KeyVaultUrl).ToStringBase64()}.vault.azure.net/",
-                     Environment.GetEnvironmentVariable(Utilities.Constants.Environment.ClientId).ToStringBase64(),
-                     Environment.GetEnvironmentVariable(Utilities.Constants.Environment.ClientSecret).ToStringBase64());
+                     $"https://KV-AEU-SDS-DEV-Tramites.vault.azure.net/",
+                     "f5e4e5ec-408a-4a78-83d3-af1e3634ec84",
+                     "vUrL7jO92kio3_-_ZE-Q4aEn4r_He0s5ij");
+                     //comentado para funcionar en docker 
+                     //config.AddAzureKeyVault(
+                     //    $"https://{Environment.GetEnvironmentVariable(Utilities.Constants.Environment.KeyVaultUrl).ToStringBase64()}.vault.azure.net/",
+                     //    Environment.GetEnvironmentVariable(Utilities.Constants.Environment.ClientId).ToStringBase64(),
+                     //    Environment.GetEnvironmentVariable(Utilities.Constants.Environment.ClientSecret).ToStringBase64());
                  }).ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); });
         }
     }

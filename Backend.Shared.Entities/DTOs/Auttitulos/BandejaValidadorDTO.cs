@@ -17,6 +17,7 @@ namespace Backend.Shared.Entities.DTOs.Auttitulos
         public string statusid { get; set; }
         public string statusstring { get; set; }
         public string daysleft { get; set; }
+        public string color { get; set; }
 
 
     }

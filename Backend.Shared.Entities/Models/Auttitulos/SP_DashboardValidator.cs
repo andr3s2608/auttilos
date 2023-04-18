@@ -9,7 +9,7 @@ namespace Backend.Shared.Entities.Models.Pamec
     {
         [Key]
         public long rn { get; set; }
-        public string days { get; set; }
+        public int days { get; set; }
         public string fileddate { get; set; }
         public string statusdate { get; set; }
         public string idProcedureRequest { get; set; }

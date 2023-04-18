@@ -1,11 +1,14 @@
-﻿using Backend.Shared.BusinessRules;
+﻿using System;
+using Backend.Shared.BusinessRules;
 using Backend.Shared.Entities.DTOs.Auttitulos;
 using Backend.Shared.Entities.Interface.Business;
 
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
+using MySqlX.XDevAPI.Common;
 
 namespace Backend.Shared.API.Controllers
 {
@@ -37,21 +40,28 @@ namespace Backend.Shared.API.Controllers
         [HttpGet("GetRequestByid/{idrequest}")]
         public async Task<ActionResult> Getrequestbyid(string idrequest)
         {
-            var result = _requestBusiness.getRequestbyid(idrequest);
+            var result = _requestBusiness.getRequestById(idrequest);
             return StatusCode(result.Result.Code, result);
         }
-
-
-
-        [HttpGet("GetAllResolutions")]
-        public async Task<ActionResult> GetResolutions()
+        
+        [HttpGet("GetRequestByUser/{idUser}")]
+        public async Task<ActionResult> GetRequestsByIdUser(string idUser)
         {
-            var result = _requestBusiness.getResolutions();
-            return StatusCode(result.Result.Code, result);
+            try
+            {
+                return Ok(await _requestBusiness.getAllByUser(idUser));
+            }
+            catch (Exception e)
+            {
+                return NotFound(e.Message);
+            }
+            
+            
         }
+        
 
         [HttpGet("GetDashboard/{FinalDate}/{TextToSearch}/{selectedfilter}/{pagenumber}/{pagination}")]
-        public async Task<ActionResult> GetDashboard(DateTime FinalDate,string? TextToSearch,
+        public async Task<ActionResult> GetDashboard(string FinalDate,string? TextToSearch,
             string? selectedfilter, string pagenumber, string pagination)
         {
             var result = _requestBusiness.GetDashboard(FinalDate, TextToSearch,
@@ -62,7 +72,7 @@ namespace Backend.Shared.API.Controllers
         [HttpPut("UpdateRequest")]
         public async Task<ActionResult> UpdateRequest(RequestDTO request)
         {
-            var result = _requestBusiness.UpdateRequest(request);
+            var result = _requestBusiness.updateRequest(request);
             return StatusCode(result.Result.Code, result);
         }
 

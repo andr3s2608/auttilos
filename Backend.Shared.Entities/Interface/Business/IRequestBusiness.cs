@@ -10,13 +10,13 @@ namespace Backend.Shared.Entities.Interface.Business
     public interface IRequestBusiness
     {
 
-        Task<ResponseBase<procedure_requests>> getRequestbyid(string idrequest);
+        Task<ResponseBase<procedure_requests>> getRequestById(string idRequest);
 
-        Task<ResponseBase<List<Entities.Models.Auttitulos.Resolutions>>> getResolutions();
+        Task<List<RequestReponseTableUserDto>> getAllByUser(string idUser);
 
-        Task<ResponseBase<string>> UpdateRequest(RequestDTO request);
+        Task<ResponseBase<string>> updateRequest(RequestDTO request);
 
-        Task<ResponseBase<List<BandejaValidadorDTO>>> GetDashboard(System.DateTime FinalDate, string TextToSearch,
+        Task<ResponseBase<List<BandejaValidadorDTO>>> GetDashboard(string FinalDate, string TextToSearch,
             string selectedfilter, string pagenumber, string pagination);
 
 
