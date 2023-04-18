@@ -147,13 +147,10 @@ namespace Backend.Shared.BusinessRules
 
                 result.IdTitleTypes = request.IdTitleTypes;
                 result.IdStatus_types = request.IdStatus_types;
-                result.IdInstitute = request.IdInstitute;
-                result.name_institute = request.name_institute;
+                result.IdInstitute = request.IdInstitute;                
                 result.IdProfessionInstitute = request.IdProfessionInstitute;
                 result.IdUser = request.IdUser;
-                result.user_code_ventanilla = request.user_code_ventanilla;
-                result.AplicantName = request.AplicantName;
-                result.last_status_date = request.last_status_date;
+                result.user_code_ventanilla = request.user_code_ventanilla;                
                 result.filed_number = request.filed_number;
                 result.IdProfessionInstitute = request.IdProfessionInstitute;
                 result.diploma_number = request.diploma_number;
@@ -170,6 +167,9 @@ namespace Backend.Shared.BusinessRules
                 result.IdEntity = request.IdEntity;
                 result.name_institute = request.name_institute;
                 result.last_status_date = request.last_status_date;
+                result.AplicantName = request.AplicantName;
+                result.IdNumber=request.IdNumber;
+               
 
                 await _repositoryprocedure.UpdateAsync(result);
 
@@ -217,7 +217,7 @@ namespace Backend.Shared.BusinessRules
                     idprocedure = item.idProcedureRequest,
                     aplicantname = item.AplicantName,
                     daysleft = item.days+" dias restantes",
-                    color= item.days >= 15 ? "verde":(item.days >= 5 ? "amarillo" :"rojo"),
+                    color= item.days >= 15 ? "darkseagreen":(item.days >= 5 ? "khaki" :"coral"),
                     fileddate = item.fileddate,
                     numerid = item.IdNumber,
                     statusdate = item.statusdate,
@@ -227,7 +227,7 @@ namespace Backend.Shared.BusinessRules
                 }).ToList();
 
                 return new Entities.Responses.ResponseBase<List<BandejaValidadorDTO>>(code: HttpStatusCode.OK,
-                message: "ha ocurrido un error mientras se traia la información", data: resultExecuteSP_response);
+                message: "Solicitud OK", data: resultExecuteSP_response);
                
 
             }
