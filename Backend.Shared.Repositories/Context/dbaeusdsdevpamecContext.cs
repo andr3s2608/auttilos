@@ -28,6 +28,8 @@ namespace Backend.Shared.Repositories.Context
         public virtual DbSet<Entities.Models.Auttitulos.Document_types_procedure> Document_types_procedure { get; set; }
 
         public virtual DbSet<SP_DashboardValidator> SP_DashboardValidator { get; set; }
+
+        public virtual DbSet<SP_ReportsDashboard> SP_ReportsDashboard { get; set; }
         public virtual DbSet<Constante> Constante { get; set; }
        
         public virtual DbSet<SeguimientoPAMEC> SeguimientoPAMEC { get; set; }

@@ -37,8 +37,10 @@ namespace Backend.Shared.Entities.DTOs.Auttitulos
         public string IdNumber { get; set; }
         public string AplicantName { get; set; }
         public string name_profession { get; set; }
-   
-       
+
+        public string IdDocument_type { get; set; }
+
+
     }
 
 }

@@ -49,6 +49,8 @@ namespace Backend.Shared.Entities.Models.Auttitulos
 
         public string name_profession { get; set; }
 
+        public string IdDocument_type { get; set; }
+
 
         [InverseProperty("IdProcdocNavigation")]
         public virtual ICollection<Document_types_procedure>  Document_types_procedure { get; set; }

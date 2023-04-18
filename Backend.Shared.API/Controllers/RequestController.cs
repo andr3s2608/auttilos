@@ -75,6 +75,16 @@ namespace Backend.Shared.API.Controllers
             var result = _requestBusiness.updateRequest(request);
             return StatusCode(result.Result.Code, result);
         }
+        [HttpGet("GetReports/{InitialDate}/{FinalDate}/{TextToSearch}/{selectedfilter}/{iduser}/{pagenumber}/{pagination}")]
+        public async Task<ActionResult> GetReports(string InitialDate, string FinalDate, string? TextToSearch,
+            string? selectedfilter, string? iduser, string pagenumber, string pagination)
+        {
+            var result = _requestBusiness.GetReports(InitialDate,FinalDate, TextToSearch,
+                selectedfilter, pagenumber, pagination, iduser);
+            return StatusCode(result.Result.Code, result);
+        }
+
+        
 
 
         #endregion
