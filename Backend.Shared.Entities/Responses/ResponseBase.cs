@@ -11,7 +11,7 @@ namespace Backend.Shared.Entities.Responses
             ResponseTime = DateTime.UtcNow.AddHours(-5);
         }
 
-        public ResponseBase(HttpStatusCode code = HttpStatusCode.OK, string message = null, T data = default, int count = 0)
+        public ResponseBase(HttpStatusCode code = HttpStatusCode.OK, string message = null, T data = default, int count = 0, object include = null)
         {
             ResponseTime = DateTime.UtcNow.AddHours(-5);
             Code = (int)code;

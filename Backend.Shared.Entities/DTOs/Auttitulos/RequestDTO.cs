@@ -13,8 +13,7 @@ namespace Backend.Shared.Entities.DTOs.Auttitulos
         public int IdProfessionInstitute { get; set; }
         public string IdUser { get; set; }
         public int user_code_ventanilla { get; set; }
-        public string filed_number { get; set; }
-        public int IdProfession { get; set; }
+        public string filed_number { get; set; }       
         public int? diploma_number { get; set; }
         public string? graduation_certificate { get; set; }
         public DateTime end_date { get; set; }
@@ -22,12 +21,14 @@ namespace Backend.Shared.Entities.DTOs.Auttitulos
         public string? folio { get; set; }
         public decimal year_title { get; set; }
         public string? professional_card { get; set; }
-        public string? name_international_university { get; set; }
+        public string? name_profession { get; set; }
         public int IdCountry { get; set; }
         public string? number_resolution_convalidation { get; set; }
         public DateTime? date_resolution_convalidation { get; set; }
         public int? IdEntity { get; set; }
+        public DateTime? filed_date { get; set; }
 
-        public string? name_institute_international { get; set; }
+        public DateTime? last_status_date { get; set; }
+        public string? name_institute { get; set; }
     }
 }

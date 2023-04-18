@@ -1,5 +1,6 @@
 ﻿using Backend.Shared.Entities.Interface.Repository;
 using Backend.Shared.Entities.Models.Auttitulos;
+using Backend.Shared.Entities.DTOs.Auttitulos;
 using Backend.Shared.Repositories.Context;
 using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.EntityFrameworkCore;
@@ -119,6 +120,10 @@ namespace Backend.Shared.Repositories
 
             return await query.AsNoTracking().FirstOrDefaultAsync();
         }
+
+       
+
+
 
         public async Task<int> UpdateAsync(List<procedure_requests> values, params Expression<Func<procedure_requests, object>>[] propertyExpressions)
         {

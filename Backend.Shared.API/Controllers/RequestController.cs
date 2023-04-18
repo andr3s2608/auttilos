@@ -3,6 +3,7 @@ using Backend.Shared.Entities.DTOs.Auttitulos;
 using Backend.Shared.Entities.Interface.Business;
 
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -46,6 +47,15 @@ namespace Backend.Shared.API.Controllers
         public async Task<ActionResult> GetResolutions()
         {
             var result = _requestBusiness.getResolutions();
+            return StatusCode(result.Result.Code, result);
+        }
+
+        [HttpGet("GetDashboard/{FinalDate}/{TextToSearch}/{selectedfilter}/{pagenumber}/{pagination}")]
+        public async Task<ActionResult> GetDashboard(DateTime FinalDate,string? TextToSearch,
+            string? selectedfilter, string pagenumber, string pagination)
+        {
+            var result = _requestBusiness.GetDashboard(FinalDate, TextToSearch,
+                selectedfilter, pagenumber, pagination);
             return StatusCode(result.Result.Code, result);
         }
 

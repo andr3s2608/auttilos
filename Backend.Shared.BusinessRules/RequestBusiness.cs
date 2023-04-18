@@ -1,4 +1,4 @@
-﻿using Backend.Shared.Entities.DTOs;
+﻿using Backend.Shared.Entities.DTOs.Auttitulos;
 using Backend.Shared.Entities.Interface.Business;
 using Backend.Shared.Entities.Models.Pamec;
 using Backend.Shared.Entities.Interface.Repository;
@@ -166,8 +166,7 @@ namespace Backend.Shared.BusinessRules
                 result.IdProfessionInstitute = request.IdProfessionInstitute;
                 result.IdUser = request.IdUser;
                 result.user_code_ventanilla = request.user_code_ventanilla;
-                result.filed_number = request.filed_number;
-                result.IdProfession = request.IdProfession;
+                result.filed_number = request.filed_number;               
                 result.diploma_number = request.diploma_number;
                 result.graduation_certificate = request.graduation_certificate;
                 result.end_date = request.end_date;
@@ -175,12 +174,14 @@ namespace Backend.Shared.BusinessRules
                 result.folio = request.folio;
                 result.year_title = request.year_title;
                 result.professional_card = request.professional_card;
-                result.name_international_university = request.name_institute_international;
+                result.name_profession = request.name_profession;
                 result.IdCountry = request.IdCountry;
                 result.number_resolution_convalidation = request.number_resolution_convalidation;
                 result.date_resolution_convalidation = request.date_resolution_convalidation;
                 result.IdEntity = request.IdEntity;
-                result.name_institute_international = request.name_institute_international;
+                result.name_institute = request.name_institute;
+                result.last_status_date = request.last_status_date;
+                
 
                 await _repositoryprocedure.UpdateAsync(result);
 
@@ -196,11 +197,63 @@ namespace Backend.Shared.BusinessRules
         }
 
 
+        /// <summary>
+        /// Gets requests to dashboard
+        /// </summary>
+        /// <returns></returns>
+        public async Task<ResponseBase<List<BandejaValidadorDTO>>> GetDashboard(DateTime FinalDate, string TextToSearch,
+            string selectedfilter, string pagenumber, string pagination)
+        {
+            try
+            {
+                var days = "";
+                selectedfilter = selectedfilter + "";
+                TextToSearch = TextToSearch + "";
+                if (selectedfilter.Equals("tiempo"))
+                {
+                    days = TextToSearch;
+                    TextToSearch = "";
+                    selectedfilter = "";
+                }
+              
+
+                var initialpage = int.Parse(pagination) * (int.Parse(pagenumber)-1);
+                var finalpage = initialpage + int.Parse(pagination);
+
+
+                var resultExecuteSP = await _pamecContext.SP_DashboardValidator.
+                    FromSqlInterpolated($"EXEC auttitulos.SP_DashboardValidator @filtertype = {selectedfilter}, @filter = {TextToSearch}, @date = {FinalDate}, @days = {days}, @pagination = {initialpage+""}, @paginationfinal = {finalpage+""}").ToListAsync();
+
+                var resultExecuteSP_response = resultExecuteSP.Select(item => new BandejaValidadorDTO
+                {
+                    idfiled = item.idfiled,
+                    idprocedure = item.idProcedureRequest,
+                    aplicantname = item.AplicantName,
+                    daysleft = item.days+" dias restantes",
+                    fileddate = item.fileddate,
+                    numerid = item.IdNumber,
+                    statusdate = item.statusdate,
+                    statusid = item.idstatus,
+                    statusstring = item.estadostring,
+                    titletype=item.titletype
+                }).ToList();
+
+                return new Entities.Responses.ResponseBase<List<BandejaValidadorDTO>>(code: HttpStatusCode.OK,
+                message: "ha ocurrido un error mientras se traia la información", data: resultExecuteSP_response);
+               
+
+            }
+            catch (Exception ex)
+            {
+                return new Entities.Responses.ResponseBase<List<BandejaValidadorDTO>>(code: HttpStatusCode.OK,
+                 message: "ha ocurrido un error mientras se traia la información", data: null);
+            }
+        }
 
 
         #endregion
 
     }
-}
+    }
     
 

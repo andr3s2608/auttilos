@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-
+using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Shared.BusinessRules
 {
@@ -56,7 +56,8 @@ namespace Backend.Shared.BusinessRules
 
             try
             {
-                var result = await _repositorytracking.GetAllAsync(x => x.IdProcedureRequest.Equals(int.Parse(idRequest)));
+                var result = await _repositorytracking.GetAllAsync(x => x.IdProcedureRequest.Equals(int.Parse(idRequest)), include: inc => (Microsoft.EntityFrameworkCore.Query.IIncludableQueryable<Tracking, object>)inc
+                                                                                                                                    .Include(i => i.IdStatusTypeTracNavigation));
                 var resullist = new List<Tracking>();
 
                 foreach(var item in result)
@@ -95,7 +96,7 @@ namespace Backend.Shared.BusinessRules
                 result.IdStatusTypes = tracking.IdStatusTypes;
                 result.IdProcedureRequest = tracking.IdProcedureRequest;
                 result.IdUser = tracking.IdUser;
-                result.date_tracking = System.DateTime.Now;
+                result.date_tracking = tracking.dateTracking;
                 result.observations = tracking.observations;
                 result.negation_causes = tracking.negation_causes;
                 result.other_negation_causes = tracking.other_negation_causes;

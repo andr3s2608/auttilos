@@ -1,4 +1,5 @@
 ﻿using Backend.Shared.Entities.Interface.Business;
+using Backend.Shared.Entities.Models.Auttitulos;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
@@ -27,6 +28,13 @@ namespace Backend.Shared.API.Controllers
         public async Task<ActionResult> GetResolutions()
         {
             var result = _resolutionsBusiness.getResolutions();
+            return StatusCode(result.Result.Code, result);
+        }
+
+        [HttpPost("AddResolution")]
+        public async Task<ActionResult> AddResolution(Resolutions resolution)
+        {
+            var result = _resolutionsBusiness.AddResolution(resolution);
             return StatusCode(result.Result.Code, result);
         }
         #endregion

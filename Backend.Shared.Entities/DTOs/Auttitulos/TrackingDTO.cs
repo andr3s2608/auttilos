@@ -21,5 +21,6 @@ namespace Backend.Shared.Entities.DTOs.Auttitulos
         public string? paragraph_JMA1 { get; set; }
         public string? paragraph_JMA2 { get; set; }
         public string? paragraph_AMA { get; set; }
+        public DateTime dateTracking { get; set; }
     }
 }
