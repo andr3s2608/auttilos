@@ -33,6 +33,8 @@ namespace Backend.Shared.Entities.DTOs.Auttitulos
         public DateTime last_status_date { get; set; }
 
         public DateTime filed_date { get; set; }
+
+        public string IdNumber { get; set; }
         public string AplicantName { get; set; }
         public string name_profession { get; set; }
    
