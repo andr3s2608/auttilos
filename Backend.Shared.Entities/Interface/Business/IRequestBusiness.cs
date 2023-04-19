@@ -10,7 +10,7 @@ namespace Backend.Shared.Entities.Interface.Business
     public interface IRequestBusiness
     {
 
-        Task<ResponseBase<procedure_requests>> getRequestById(string idRequest);
+        Task<ProcedureRequest_ResponseDTO> getRequestById(int idRequest);
 
         Task<List<RequestReponseTableUserDto>> getAllByUser(string idUser);
 

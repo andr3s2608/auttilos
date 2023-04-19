@@ -22,6 +22,7 @@ namespace Backend.Shared.BusinessRules
 
         //private readonly IMapper mapper;
         private readonly IDocuments_typeRepository _repositorydocuments;
+        private readonly IDocument_procedureRepository _repositoryDocumentsProcedure;
         private readonly IEntitiesRepository _repositoryentities;
         private readonly IProcedure_requestsRepository _repositoryprocedure;
         private readonly IResolutionsRepository _repositoryresolutions;
@@ -65,22 +66,76 @@ namespace Backend.Shared.BusinessRules
         /// </summary>
         ///  <param name="idRequest">Request`s id</param>
         /// <returns>Request by id</returns>
-        public async Task<ResponseBase<procedure_requests>> getRequestById(string idRequest)
+        public async Task<ProcedureRequest_ResponseDTO> getRequestById(int idRequest)
         {
             try
             {
-                var result = await _repositoryprocedure.GetAsync(x => x.IdProcedureRequest.Equals(int.Parse(idRequest)),
-                    include: inc =>
-                        (IIncludableQueryable<procedure_requests, object>)inc
-                            .Include(i => i.IdStatusTypeprocNavigation));
+                var resultQuery =
+                    await _repositoryprocedure.GetAsync(x => x.IdProcedureRequest == idRequest,
+                        include: inc =>
+                            inc
+                                .Include(i => i.IdStatusTypeprocNavigation)
+                                .Include(i => i.IdTitleTypeprocNavigation));
 
-                return new ResponseBase<procedure_requests>(code: HttpStatusCode.OK,
-                    message: Messages.GetOk, data: result, count: 1);
+                var resultDocuments =
+                    await _repositoryDocumentsProcedure.GetAllAsync(x => x.IdProcedureRequest == idRequest,
+                        include:inc =>
+                            inc
+                                .Include(i => i.IdDocumentProcNavigation));
+
+                var listDocuments = new List<DocumentSupportResponseDTO>();
+
+                if (listDocuments.Count != 0)
+                {
+                    foreach (var document in resultDocuments)
+                    {
+                        var newDocument = new DocumentSupportResponseDTO
+                        {
+                            IdDocumentTypeProcedureRequest = document.IdDocumentTypeProcedureRequest,
+                            description = document.IdDocumentProcNavigation.description,
+                            path = document.path,
+                            is_valid = document.is_valid
+                        };
+                        listDocuments.Add(newDocument);
+                    }
+                }
+
+                var procedureDto = new ProcedureRequest_ResponseDTO
+                {
+                    idProcedureRequest = resultQuery.IdProcedureRequest,
+                    idTitleTypes = resultQuery.IdTitleTypes,
+                    titleType = resultQuery.IdTitleTypeprocNavigation.description,
+                    idStatus = resultQuery.IdStatus_types,
+                    status = resultQuery.IdStatusTypeprocNavigation.description,
+                    IdInstitute = resultQuery.IdInstitute,
+                    name_institute = resultQuery.name_institute,
+                    IdProfessionInstitute = resultQuery.IdProfessionInstitute,
+                    name_profession = resultQuery.name_profession,
+                    IdUser = resultQuery.IdUser,
+                    user_code_ventanilla = resultQuery.user_code_ventanilla,
+                    AplicantName = resultQuery.AplicantName,
+                    last_status_date = resultQuery.last_status_date,
+                    filed_date = resultQuery.filed_date,
+                    filed_number = resultQuery.filed_number,
+                    diploma_number = resultQuery.diploma_number,
+                    graduation_certificate = resultQuery.graduation_certificate,
+                    end_date = resultQuery.end_date,
+                    book = resultQuery.book,
+                    folio = resultQuery.folio,
+                    year_title = resultQuery.year_title,
+                    professional_card = resultQuery.professional_card,
+                    idCountry = resultQuery.IdCountry,
+                    number_resolution_convalidation = resultQuery.number_resolution_convalidation,
+                    date_resolution_convalidation = resultQuery.date_resolution_convalidation,
+                    idEntity = resultQuery.IdEntity,
+                    documentsSupport = listDocuments
+                };
+                
+                return procedureDto;
             }
             catch (Exception ex)
             {
-                return new ResponseBase<procedure_requests>(code: HttpStatusCode.OK,
-                    message: "Ha ocurrido un error mientras se consultaba la información", data: null);
+                throw ex;
             }
         }
 
@@ -88,18 +143,21 @@ namespace Backend.Shared.BusinessRules
         {
             try
             {
-                var result = await _repositoryprocedure.GetAllAsync(x => x.IdUser.Equals(idUser), 
-                    orderBy: order=> order.OrderByDescending(x => x.last_status_date),
-                    include: inc => 
-                        inc.Include(i => i.IdStatusTypeprocNavigation)
-                        .Include(i => i.IdTitleTypeprocNavigation));
-               
-                
+                var result =
+                    await _repositoryprocedure.GetAllAsync(x => x.IdUser.Equals(idUser),
+                        orderBy: order => order.OrderByDescending(x => x.last_status_date),
+                        include: inc =>
+                            inc
+                                .Include(i => i.IdStatusTypeprocNavigation)
+                                .Include(i => i.IdTitleTypeprocNavigation));
+
+
                 var resulList = new List<RequestReponseTableUserDto>();
-                
+
                 foreach (var item in result)
                 {
-                    var resultResolutions = await _repositoryresolutions.GetAllAsync(x => x.IdProcedureRequest == item.IdProcedureRequest);
+                    var resultResolutions =
+                        await _repositoryresolutions.GetAllAsync(x => x.IdProcedureRequest == item.IdProcedureRequest);
 
                     var lastResolution = "";
                     if (resultResolutions.Count != 0)
@@ -123,14 +181,13 @@ namespace Backend.Shared.BusinessRules
                     };
                     resulList.Add(nuevoObjeto);
                 }
-                
+
                 return resulList;
             }
             catch (Exception ex)
             {
                 throw ex;
             }
-            
         }
 
 
