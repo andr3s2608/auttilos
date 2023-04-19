@@ -16,6 +16,12 @@ namespace Backend.Shared.Entities.Interface.Business
 
         Task<ResponseBase<string>> updateRequest(RequestDTO request);
 
+        Task<ResponseBase<List<BandejaValidadorDTO>>> GetDashboard(string FinalDate, string TextToSearch,
+            string selectedfilter, string pagenumber, string pagination);
+
+        Task<ResponseBase<List<ReportsDashboardDTO>>> GetReports(string InitialDate, string FinalDate, string TextToSearch,
+            string selectedfilter, string pagenumber, string pagination, string iduser);
+
 
     }
 }

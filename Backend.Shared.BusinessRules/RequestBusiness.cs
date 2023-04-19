@@ -5,6 +5,7 @@ using System.Net;
 using System.Threading.Tasks;
 using AutoMapper;
 using Backend.Shared.BusinessRules.Middle;
+using Backend.Shared.Repositories.Context;
 using Backend.Shared.Entities.DTOs.Auttitulos;
 using Backend.Shared.Entities.Interface.Business;
 using Backend.Shared.Entities.Interface.Repository;
@@ -29,6 +30,7 @@ namespace Backend.Shared.BusinessRules
         private readonly IStatusRepository _repositorystatus;
         private readonly ITitle_typesRepository _repositorytittle;
         private readonly ITrackingRepository _repositorytracking;
+        private readonly dbaeusdsdevpamecContext _pamecContext;
 
         #endregion
 
@@ -41,6 +43,7 @@ namespace Backend.Shared.BusinessRules
         public RequestBusiness(
             IDocuments_typeRepository repositorydocuments,
             IEntitiesRepository repositoryentities,
+            dbaeusdsdevpamecContext pamecContext,
             IProcedure_requestsRepository repositoryprocedure,
             IResolutionsRepository repositoryresolutions,
             IStatusRepository repositorystatus,
@@ -55,6 +58,7 @@ namespace Backend.Shared.BusinessRules
             _repositorystatus = repositorystatus;
             _repositorytittle = repositorytittle;
             _repositorytracking = repositorytracking;
+            _pamecContext = pamecContext;
         }
 
         #endregion
@@ -200,13 +204,10 @@ namespace Backend.Shared.BusinessRules
 
                 result.IdTitleTypes = request.IdTitleTypes;
                 result.IdStatus_types = request.IdStatus_types;
-                result.IdInstitute = request.IdInstitute;
-                result.name_institute = request.name_institute;
+                result.IdInstitute = request.IdInstitute;                
                 result.IdProfessionInstitute = request.IdProfessionInstitute;
                 result.IdUser = request.IdUser;
-                result.user_code_ventanilla = request.user_code_ventanilla;
-                result.AplicantName = request.AplicantName;
-                result.last_status_date = request.last_status_date;
+                result.user_code_ventanilla = request.user_code_ventanilla;                
                 result.filed_number = request.filed_number;
                 result.IdProfessionInstitute = request.IdProfessionInstitute;
                 result.diploma_number = request.diploma_number;
@@ -221,6 +222,12 @@ namespace Backend.Shared.BusinessRules
                 result.number_resolution_convalidation = request.number_resolution_convalidation;
                 result.date_resolution_convalidation = request.date_resolution_convalidation;
                 result.IdEntity = request.IdEntity;
+                result.name_institute = request.name_institute;
+                result.last_status_date = request.last_status_date;
+                result.AplicantName = request.AplicantName;
+                result.IdNumber=request.IdNumber;
+                result.IdDocument_type = request.IdDocument_type;
+               
 
                 await _repositoryprocedure.UpdateAsync(result);
 
@@ -233,6 +240,116 @@ namespace Backend.Shared.BusinessRules
                     message: "ha ocurrido un error mientras se Actualizaba la información", data: null);
             }
         }
+
+
+        /// <summary>
+        /// Gets requests to dashboard
+        /// </summary>
+        /// <returns></returns>
+        public async Task<ResponseBase<List<BandejaValidadorDTO>>> GetDashboard(string FinalDate, string TextToSearch,
+            string selectedfilter, string pagenumber, string pagination)
+        {
+            try
+            {
+                var days = "";
+                selectedfilter = selectedfilter + "";
+                TextToSearch = TextToSearch + "";
+                if (selectedfilter.Equals("tiempo"))
+                {
+                    days = TextToSearch;
+                    TextToSearch = "";
+                    selectedfilter = "";
+                }
+              
+
+                var initialpage = int.Parse(pagination) * (int.Parse(pagenumber)-1);
+                var finalpage = initialpage + int.Parse(pagination);
+
+
+                var resultExecuteSP = await _pamecContext.SP_DashboardValidator.
+                    FromSqlInterpolated($"EXEC auttitulos.SP_DashboardValidator @filtertype = {selectedfilter}, @filter = {TextToSearch}, @date = {FinalDate}, @days = {days}, @pagination = {initialpage+""}, @paginationfinal = {finalpage+""}").ToListAsync();
+
+                var resultExecuteSP_response = resultExecuteSP.Select(item => new BandejaValidadorDTO
+                {
+                    idfiled = item.idfiled,
+                    idprocedure = item.idProcedureRequest,
+                    aplicantname = item.AplicantName,
+                    daysleft ="Quedan "+ item.days+" días,estos son los dias transcurridos "+(item.days - 20),
+                    color= item.days >= 15 ? "darkseagreen":(item.days >= 5 ? "khaki" :"coral"),
+                    fileddate = item.fileddate,
+                    idnumber = item.IdNumber,
+                    statusdate = item.statusdate,
+                    statusid = item.idstatus,
+                    statusstring = item.estadostring,
+                    titletype=item.titletype
+                }).ToList();
+
+                return new Entities.Responses.ResponseBase<List<BandejaValidadorDTO>>(code: HttpStatusCode.OK,
+                message: "Solicitud OK", data: resultExecuteSP_response, count: resultExecuteSP_response.Count);
+               
+
+            }
+            catch (Exception ex)
+            {
+                return new Entities.Responses.ResponseBase<List<BandejaValidadorDTO>>(code: HttpStatusCode.OK,
+                 message: "ha ocurrido un error mientras se traia la información", data: null);
+            }
+        }
+
+
+
+        /// <summary>
+        /// Gets requests to dashboard
+        /// </summary>
+        /// <returns></returns>
+        public async Task<ResponseBase<List<ReportsDashboardDTO>>> GetReports(string InitialDate,string FinalDate, string TextToSearch,
+            string selectedfilter, string pagenumber, string pagination, string iduser)
+        {
+            try
+            {
+                
+                selectedfilter = selectedfilter + "";
+                TextToSearch = TextToSearch + "";
+                iduser = iduser + "";
+
+
+                var initialpage = int.Parse(pagination) * (int.Parse(pagenumber) - 1);
+                var finalpage = initialpage + int.Parse(pagination);
+
+
+                var resultExecuteSP = await _pamecContext.SP_ReportsDashboard.
+                    FromSqlInterpolated($"EXEC auttitulos.SP_ReportsDashboard @iduser = {iduser}, @filtertype = {selectedfilter}, @filter = {TextToSearch}, @startdate = {InitialDate}, @endate = {FinalDate}, @pagination = {initialpage + ""}, @paginationfinal = {finalpage + ""}").ToListAsync();
+
+                var resultExecuteSP_response = resultExecuteSP.Select(item => new ReportsDashboardDTO
+                {
+                    idfiled = item.idfiled,
+                    idprocedure = item.idProcedureRequest,
+                    idnumber = item.IdNumber,
+                    iddoctype=item.IdDocument_type,
+                    titletype = item.titletype,
+                    aplicantname = item.AplicantName,                    
+                    fileddate = item.fileddate,  
+                    statusid = item.idstatus,
+                    statusstring = item.estadostring,
+                    IdResolution=item.IdResolution,
+                    resolutionnumber=item.resolutionnumber+"",
+                    resolutionpath=item.resolutionpath+""
+                   
+                }).ToList();
+
+                return new Entities.Responses.ResponseBase<List<ReportsDashboardDTO>>(code: HttpStatusCode.OK,
+                message: "Solicitud OK", data: resultExecuteSP_response,count: resultExecuteSP_response.Count);
+
+
+            }
+            catch (Exception ex)
+            {
+                return new Entities.Responses.ResponseBase<List<ReportsDashboardDTO>>(code: HttpStatusCode.OK,
+                 message: "ha ocurrido un error mientras se traia la información", data: null);
+            }
+        }
+
+
 
         #endregion
     }

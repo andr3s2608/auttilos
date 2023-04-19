@@ -1,6 +1,6 @@
 ﻿using Backend.Shared.Entities.DTOs;
 using Backend.Shared.Entities.Interface.Business;
-using Backend.Shared.Entities.Models.Pamec;
+using Backend.Shared.Entities.Models.Auttitulos;
 using Backend.Shared.Entities.Interface.Repository;
 using Backend.Shared.Entities.Responses;
 using Backend.Shared.Repositories.Context;
@@ -35,7 +35,7 @@ namespace Backend.Shared.BusinessRules
 
 
 
-        private readonly IDocuments_typeRepository _repositorydocuments;
+        private readonly IResolutionsRepository _repositoryresolution;
 
 
 
@@ -51,12 +51,12 @@ namespace Backend.Shared.BusinessRules
         /// <param name="cache"></param>
         public ResolutionsBusiness(Repositories.Context.dbaeusdsdevpamecContext pamecContext,
             Utilities.Telemetry.ITelemetryException telemetryException,
-              IDocuments_typeRepository repositorydocuments,
+              IResolutionsRepository repositoryresolution,
             IDistributedCache cache)
         {
             _pamecContext = pamecContext;
             TelemetryException = telemetryException;
-            _repositorydocuments = repositorydocuments;
+            _repositoryresolution = repositoryresolution;
 
         }
 
@@ -74,21 +74,52 @@ namespace Backend.Shared.BusinessRules
         {
             try
             {
-                //var resultList = _pamecContext.Resolutions.ToList();
-                var resultado1 = await _repositorydocuments.GetAllAsync();
-                //var resultado1 = _pamecContext.Documents_type.ToList();
+                
+                var resultado1 = await _repositoryresolution.GetAllAsync();
+
+                var resultlist = new List<Resolutions>();
+                foreach (var item in resultado1)
+                {
+                    resultlist.Add(item);
+                }
 
 
 
 
                 return new Entities.Responses.ResponseBase<List<Entities.Models.Auttitulos.Resolutions>>(code: HttpStatusCode.OK,
-                    message: Middle.Messages.GetOk, data: null, count: 0);
+                    message: Middle.Messages.GetOk, data: resultlist, count: resultlist.Count);
             }
             catch (Exception ex)
             {
                 TelemetryException.RegisterException(ex);
                 return new Entities.Responses.ResponseBase<List<Entities.Models.Auttitulos.Resolutions>>(code: HttpStatusCode.InternalServerError,
                     message: Middle.Messages.ServerError);
+            }
+        }
+        /// <summary>
+        /// adds a new  Resolution.
+        /// </summary>
+        /// <returns></returns>
+        public async Task<ResponseBase<string>> AddResolution(Resolutions resolution)
+        {
+            try
+            {
+                
+                
+                await _repositoryresolution.AddAsync(resolution);
+                
+
+
+
+
+                return new Entities.Responses.ResponseBase<string>(code: HttpStatusCode.OK,
+                    message: Middle.Messages.GetOk, data: "resolucion creada exitosamente", count: 0);
+            }
+            catch (Exception ex)
+            {
+                TelemetryException.RegisterException(ex);
+                return new Entities.Responses.ResponseBase<string>(code: HttpStatusCode.OK,
+                    message: "ha ocurrido un error mientras que guardaba la resolucion en base de datos");
             }
         }
         #endregion
