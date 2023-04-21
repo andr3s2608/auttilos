@@ -217,7 +217,7 @@ namespace Backend.Shared.BusinessRules
                     idfiled = item.idfiled,
                     idprocedure = item.idProcedureRequest,
                     aplicantname = item.AplicantName,
-                    daysleft ="Quedan "+ item.days+" días,estos son los dias transcurridos "+(item.days - 20),
+                    daysleft ="Quedan "+ item.days+" días,estos son los dias transcurridos "+(20- item.days),
                     color= item.days >= 15 ? "darkseagreen":(item.days >= 5 ? "khaki" :"coral"),
                     fileddate = item.fileddate,
                     idnumber = item.IdNumber,

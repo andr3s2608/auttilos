@@ -15,5 +15,7 @@ namespace Backend.Shared.Entities.Interface.Business
         Task<ResponseBase<List<Tracking>>> GetTrackingbyid(string idRequest);
 
         Task<ResponseBase<string>> AddTracking(TrackingDTO tracking);
+
+        Task<ResponseBase<List<DuplicatedidDTO>>> GetDuplicatedbyid(string iddocument);
     }
 }

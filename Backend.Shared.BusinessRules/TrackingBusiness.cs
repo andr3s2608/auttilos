@@ -26,6 +26,9 @@ namespace Backend.Shared.BusinessRules
         private readonly Utilities.Telemetry.ITelemetryException TelemetryException;
 
         private readonly ITrackingRepository _repositorytracking;
+        private readonly IProcedure_requestsRepository _repositoryprocedure;
+        private readonly IResolutionsRepository _repositoryresolutions;
+
 
         #endregion
 
@@ -33,12 +36,16 @@ namespace Backend.Shared.BusinessRules
 
         public TrackingBusiness(Repositories.Context.dbaeusdsdevpamecContext pamecContext,
              ITrackingRepository repositorytracking,
+              IProcedure_requestsRepository repositoryprocedure,
+               IResolutionsRepository repositoryresolutions,
             Utilities.Telemetry.ITelemetryException telemetryException)
         {
 
             _pamecContext = pamecContext;
             TelemetryException = telemetryException;
             _repositorytracking = repositorytracking;
+            _repositoryprocedure = repositoryprocedure;
+            _repositoryresolutions = repositoryresolutions;
 
         }
 
@@ -122,6 +129,49 @@ namespace Backend.Shared.BusinessRules
             catch (Exception ex)
             {
                 return new Entities.Responses.ResponseBase<string>(code: HttpStatusCode.OK,
+                 message: "ha ocurrido un error mientras se traia la información", data: null);
+            }
+
+
+
+        }
+
+        /// <summary>
+        /// Gets Tracking by id
+        /// </summary>
+        /// <returns></returns>
+        public async Task<ResponseBase<List<DuplicatedidDTO>>> GetDuplicatedbyid(string iddocument)
+        {
+
+            try
+            {
+                var procedures = await _repositoryprocedure.GetAllAsync(x => x.IdNumber.Equals(iddocument));
+
+                var resultlist = new List<DuplicatedidDTO>();
+                foreach (var item in procedures)
+                {
+                    var resolution= await _repositoryresolutions.GetAsync(x => x.IdProcedureRequest.Equals(item.IdProcedureRequest));
+                    var date =resolution!=null ?  resolution.date.ToString() : "";
+
+                    var temporal = new DuplicatedidDTO();
+                    temporal.name_institute = item.name_institute;
+                    temporal.name_profesion = item.name_profession;
+                    temporal.IdProcedureRequest = item.IdProcedureRequest;
+                    temporal.date_resolution = date + (resolution!=null ? resolution.number :"");
+                    resultlist.Add(temporal);
+                    
+
+
+                }
+                
+
+                return new Entities.Responses.ResponseBase<List<DuplicatedidDTO>>(code: HttpStatusCode.OK,
+                   message: Middle.Messages.GetOk, data: resultlist, count: resultlist.Count);
+
+            }
+            catch (Exception ex)
+            {
+                return new Entities.Responses.ResponseBase<List<DuplicatedidDTO>>(code: HttpStatusCode.InternalServerError,
                  message: "ha ocurrido un error mientras se traia la información", data: null);
             }
 

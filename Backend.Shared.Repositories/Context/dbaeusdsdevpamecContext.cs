@@ -19,11 +19,15 @@ namespace Backend.Shared.Repositories.Context
         {
         }
         public virtual DbSet<Entities.Models.Auttitulos.Resolutions> Resolutions { get; set; }
+
+        public virtual DbSet<Entities.Models.Auttitulos.procedure_requests> procedure_requests { get; set; }
         public virtual DbSet<Entities.Models.Auttitulos.Title_types> Tittle_types { get; set; }
         public virtual DbSet<Entities.Models.Auttitulos.Status_types> Status_types { get; set; }
     
         public virtual DbSet<Entities.Models.Auttitulos.Entities> Entities { get; set; }
         public virtual DbSet<Entities.Models.Auttitulos.Documents_type> Documents_type { get; set; }
+
+        public virtual DbSet<Entities.Models.Auttitulos.Formats> Formats { get; set; }
 
         public virtual DbSet<Entities.Models.Auttitulos.Document_types_procedure> Document_types_procedure { get; set; }
 
@@ -68,7 +72,21 @@ namespace Backend.Shared.Repositories.Context
 
 
             });
-            modelBuilder.Entity< Entities.Models.Auttitulos.Title_types> (entity =>
+            modelBuilder.Entity< Entities.Models.Auttitulos.Formats> (entity =>
+            {
+                entity.ToTable("formats", "auttitulos");
+                entity.HasKey(e => e.IdFormat)
+                       .HasName("Formats_PK");
+
+                entity.Property(e => e.IdFormat).ValueGeneratedOnAdd();
+
+                entity.Property(e => e.Body)
+                    .IsRequired()
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
+
+            });
+            modelBuilder.Entity<Entities.Models.Auttitulos.Title_types>(entity =>
             {
                 entity.ToTable("title_types", "auttitulos");
                 entity.HasKey(e => e.IdTitleType)

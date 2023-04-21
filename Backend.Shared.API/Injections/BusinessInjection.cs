@@ -42,6 +42,7 @@ namespace Backend.Shared.API.Injections
             services.AddScoped(typeof(ITrackingRepository), typeof(TrackingRepository));
             services.AddScoped(typeof(IProcedure_requestsRepository), typeof(Procedure_requestsRepository));
             services.AddScoped(typeof(IDocument_procedureRepository), typeof(Document_procedureRepository));
+            services.AddScoped(typeof(IFormatsRepository), typeof(FormatsRepository));
 
 
 
@@ -57,7 +58,8 @@ namespace Backend.Shared.API.Injections
             services.AddTransient<IStatusBusiness, StatusBusiness>();
             services.AddTransient<ITitleBusiness, TitleBusiness>();
             services.AddTransient<ITrackingBusiness, TrackingBusiness>();
-           
+            services.AddTransient<IFormatBusiness, FormatBusiness>();
+
             //services.AddScoped(typeof(IPamecBusiness), typeof(PamecBusiness));
 
             // services.AddScoped(typeof(IGeneratePdf), typeof(GeneratePdf));

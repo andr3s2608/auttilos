@@ -24,7 +24,7 @@ namespace Backend.Shared.API.Controllers
 
         #region Methods
         /// <summary>
-        /// Permite agregar un documento a base de datos
+        /// Permite obtener los Documentos de base de datos
         /// </summary>
         /// <returns></returns>
         [HttpGet("GetDocumentsByid/{idrequest}")]
@@ -53,6 +53,16 @@ namespace Backend.Shared.API.Controllers
         public async Task<ActionResult> up(List<DocumentsDTO> documents)
         {
             var result = _documentBusiness.updateDocuments(documents);
+            return StatusCode(result.Result.Code, result);
+        }
+        /// <summary>
+        /// Permite agregar un documento a base de datos
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("GetGeneratedPDF/{idRequest}")]
+        public async Task<ActionResult> GetGeneratedPDF(string idRequest)
+        {
+            var result = _documentBusiness.GenerateCertificadoPDF(idRequest);
             return StatusCode(result.Result.Code, result);
         }
 

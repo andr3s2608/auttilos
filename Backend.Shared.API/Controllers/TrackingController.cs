@@ -41,6 +41,13 @@ namespace Backend.Shared.API.Controllers
             var result = _trackingBusiness.AddTracking(tracking);
             return StatusCode(result.Result.Code, result);
         }
+
+        [HttpGet("GetDuplicated/{iddocument}")]
+        public async Task<ActionResult> GetDuplicated(string iddocument)
+        {
+            var result = _trackingBusiness.GetDuplicatedbyid(iddocument);
+            return StatusCode(result.Result.Code, result);
+        }
         #endregion
     }
 }

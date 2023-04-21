@@ -16,9 +16,10 @@ namespace Backend.Shared.Utilities.Utils
         private readonly byte[] headerImage;
         private readonly byte[] footerImage;
 
-        public MyEvent(byte[] headerImage, byte[] footerImage)
+        public MyEvent(//byte[] headerImage,
+                       byte[] footerImage)
         {
-            this.headerImage = headerImage;
+            //this.headerImage = headerImage;
             this.footerImage = footerImage;
         }
 
@@ -35,11 +36,11 @@ namespace Backend.Shared.Utilities.Utils
 
             PdfCanvas pdfCanvas = new PdfCanvas(page.GetLastContentStream(), page.GetResources(), pdfDoc);
 
-            ImageData header = ImageDataFactory.Create(headerImage);
+            //ImageData header = ImageDataFactory.Create(headerImage);
             ImageData footer = ImageDataFactory.Create(footerImage);
 
-            pdfCanvas.AddImage(header, 50, 710, 495, true);
-            pdfCanvas.AddImage(footer, 175, 40, 250, true);
+            //pdfCanvas.AddImage(header, 50, 710, 495, true);
+            pdfCanvas.AddImage(footer, 20, 50, 250, true);
 
 
         }

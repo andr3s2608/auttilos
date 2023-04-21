@@ -17,6 +17,7 @@ namespace Backend.Shared.Entities.Interface.Business
 
         Task<ResponseBase<string>> updateDocuments(List<DocumentsDTO> documents);
 
+        Task<ResponseBase<dynamic>> GenerateCertificadoPDF(string idRequest);
 
     }
 }

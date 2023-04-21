@@ -12,7 +12,7 @@
         </member>
         <member name="M:Backend.Shared.API.Controllers.DocumentController.getDocumentsbyid(System.String)">
             <summary>
-            Permite agregar un documento a base de datos
+            Permite obtener los Documentos de base de datos
             </summary>
             <returns></returns>
         </member>
@@ -27,6 +27,18 @@
             Permite agregar un documento a base de datos
             </summary>
             <returns></returns>
+        </member>
+        <member name="M:Backend.Shared.API.Controllers.DocumentController.GetGeneratedPDF(System.String)">
+            <summary>
+            Permite agregar un documento a base de datos
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Backend.Shared.API.Controllers.FormatController">
+            <summary>
+            FirmasController 
+            </summary>
+            <seealso cref="T:Microsoft.AspNetCore.Mvc.ControllerBase" />
         </member>
         <member name="M:Backend.Shared.API.Controllers.PDFController.#ctor(Backend.Shared.Entities.Interface.Business.IPDFBussines)">
             <summary>
