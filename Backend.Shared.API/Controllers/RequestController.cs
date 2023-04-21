@@ -37,11 +37,17 @@ namespace Backend.Shared.API.Controllers
 
         #region Methods
 
-        [HttpGet("GetRequestByid/{idrequest}")]
-        public async Task<ActionResult> Getrequestbyid(string idrequest)
+        [HttpGet("GetRequestById/{idRequest}")]
+        public async Task<ActionResult> GetRequestById(int idRequest)
         {
-            var result = _requestBusiness.getRequestById(idrequest);
-            return StatusCode(result.Result.Code, result);
+            try
+            {
+                return Ok(await _requestBusiness.getRequestById(idRequest));
+            }
+            catch (Exception e)
+            {
+                return NotFound(e.Message);
+            }
         }
         
         [HttpGet("GetRequestByUser/{idUser}")]
